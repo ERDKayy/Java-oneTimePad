@@ -3,43 +3,36 @@ import java.lang.Character;
 public class onetimepad {
 
     public static int charToInt(char l) {
-		int ascii = (int) character;
+		int ascii = (int) l;
 		return ascii;
     }
 
     public static char intToChar(int i) {
-		char result = Character.toString(i);
+		char result = (char)i;
 		return result;
     }
 
-	public static String xor(String string, String key) {
-		char charString[] = string.toCharArray();
-		char charKey[] = key.toCharArray();
-		char results[];
-		int char1, char2, result;
-		char enciphered;
-		
-		for (int i = 0; i < charString.length; i++) {
-			char1 = charToInt(charString[i]);
-			char2 = charToInt(charKey[i]);
-			
-			result = char1 ^ char2;
-			enciphered = intToChar(result);
-			
-			val = Integer.toBinary(charString[i]);
-			val2 = Integer.toBinary(charKey[i]);			
-			xorResult = val ^ val2;
+
+	public static String encipher(String string, String key) {
+        final byte[] text = string.getBytes("UTF-8");
+        final byte[] encoded = new byte[text.length];
+
+		for (int i = 0; i < text.length; i++) {
+			encoded[i] = (byte) (text[i] ^ key[i]);
 		}
+        String encipheredString = new String(encoded, "UTF-8");
+        return encipheredString;
 	}
-	
-    public static String encipher(String original, String onetimepad) {
-		
-		
-    }
 
-	public static String decipher(String cryptText, String onetimepad) {
+	public static String decipher(String string, String key) {
+        final byte[] text = string.getBytes("UTF-8");
+        final byte[] deciphered = new byte[text.length];
 
-        return cryptText;
+        for (int i = 0; i < text.length; i ++) {
+            deciphered = (byte) (text[i] ^ key[i]);
+        }
+        String decipheredString = new String(deciphered, "UTF-8");
+        return decipheredString;
 	}
 
 
@@ -68,16 +61,16 @@ public class onetimepad {
             else if (input == 2) {
                 System.out.println("Enter text to encrypt...");
                 toEncrypt = sc.next();
-                toEncrypt = sc.nextLine();
-                toDecrypt = xor(toEncrypt, key);
-                System.out.println(toDecrypt);
-                System.out.println(toEncrypt);
+                toEncrypt += sc.nextLine();
+                System.out.println("char " + toEncrypt);
+                toDecrypt = encipher(toEncrypt, key);
+                System.out.println("Encrypted:" + toDecrypt);
             }
 
             else if (input == 3) {
                 System.out.println("Decryption...");
-                toDecrypt = sc.next();
-                toDecrypt += sc.nextLine();
+                //toDecrypt = sc.next();
+                //toDecrypt += sc.nextLine();
                 decrypted = decipher(toDecrypt, key);
                 System.out.println(decrypted);
             }
