@@ -15,10 +15,11 @@ public class onetimepad {
 
 	public static String encipher(String string, String key) {
         final byte[] text = string.getBytes("UTF-8");
+        final byte[] keyByte = key.getBytes("UTF-8");
         final byte[] encoded = new byte[text.length];
 
 		for (int i = 0; i < text.length; i++) {
-			encoded[i] = (byte) (text[i] ^ key[i]);
+			encoded[i] = (byte) (text[i] ^ keyByte[i]);
 		}
         String encipheredString = new String(encoded, "UTF-8");
         return encipheredString;
@@ -26,10 +27,11 @@ public class onetimepad {
 
 	public static String decipher(String string, String key) {
         final byte[] text = string.getBytes("UTF-8");
+        final byte[] keyByte = key.getBytes("UTF-8");
         final byte[] deciphered = new byte[text.length];
 
         for (int i = 0; i < text.length; i ++) {
-            deciphered = (byte) (text[i] ^ key[i]);
+            deciphered = (byte) (text[i] ^ keyByte[i]);
         }
         String decipheredString = new String(deciphered, "UTF-8");
         return decipheredString;
